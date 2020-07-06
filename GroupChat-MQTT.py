@@ -10,7 +10,7 @@ user = input("Input username: ")
 client = mqtt.Client(user)
 group = int(input("Make a group! How many person? (int) >>"))
 pubtop = user
-kunyit=[]
+
 def on_message(client, userdata, message):
     msg = str(message.topic)
     time_now = datetime.now()
@@ -19,13 +19,6 @@ def on_message(client, userdata, message):
         string = str(message.payload.decode("utf-8"))
         print(f"{message.topic} > ", string , "(",time_string, ")")
         pubchat = f"{message.topic} > " + string
-        vaar = str(message.topic)
-        if ((vaar == "aldi" and string == "pendek")):
-            test = "bisa"
-            kunyit.append(test)
-        if ((vaar == "ecky" and string == "pendek")):
-            test = "bisa"
-            kunyit.append(test)
     if (msg != pubtop and msg == "photo"):
         print("Messsage received")
         string = message.payload
@@ -84,22 +77,7 @@ while True:
             file_upload = open("foto3.jpg", "rb")
             content = file_upload.read()
             # pubfot = f"{pubtop} > Send Photo 3"
-        print(kunyit)
-        for i in range(len(kunyit)):
-            if (choose == kunyit[i]):
-                print("jangan sama woi")
-            client.publish("photo", content)
-        kunyit.append(choose)
 
-
-    if (chat == "pendek"):
-        kunyit.append("bisa")
-        print(kunyit)
-        if (len(kunyit) == 3):
-            for i in range(len(kunyit)):
-                if (kunyit[i] == "bisa" and kunyit[i+1] == "bisa" and kunyit[i+2] == "bisa"):
-                    print("SELAMAT BOI")
-        # print("SELAMAT BOIIIII")
     client.publish(pubtop, chat.encode())
 
     time_now = datetime.now()
